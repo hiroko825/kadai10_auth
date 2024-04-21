@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <?php
+<?php
+session_start();
+
 // ユーザーネームとパスワードの設定
 $correct_username = "hhirosawa";
 $correct_password = "Hiroko1825";
@@ -19,18 +21,17 @@ $password = $_POST['password'] ?? '';
 // ログイン情報の検証
 if ($username === $correct_username && $password === $correct_password) {
     // ログイン成功時の処理
-    session_start();
     $_SESSION['loggedin'] = true;
+    $_SESSION['login_message'] = "ログインに成功しました！";
     header("Location: display.php");
     exit();
 } else {
     // ログイン失敗時の処理
     echo "ユーザーネームまたはパスワードが間違っています。";
+
+    // 2秒後にlogin.phpにリダイレクト
+    header("refresh:2; url=welcome.php");
 }
-
-// 2秒後にlogin.phpにリダイレクト
-header("refresh:2; url=index2.php");
-
 ?>
 </body>
 </html>
